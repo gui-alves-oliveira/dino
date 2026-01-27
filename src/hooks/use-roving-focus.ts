@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { useCollection } from "./useCollection";
+import { useCollection } from "./use-collection";
 
 export function useRovingFocus() {
   const { getItems } = useCollection();

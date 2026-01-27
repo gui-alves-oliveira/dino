@@ -1,10 +1,10 @@
 import { useReducer, useRef, type ReactNode } from "react";
 import { menuReducer } from "./menu-state";
-import { MenuContext } from "./context/menu";
 import { MenuPopover } from "./menu-popover";
 import { MenuItem } from "./menu-item";
 import { MenuTrigger } from "./menu-trigger";
 import { CollectionProvider } from "../../core/collection/collection";
+import { MenuContext } from "./menu-context";
 
 interface MenuRootProps {
   children: ReactNode;

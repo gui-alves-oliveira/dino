@@ -1,8 +1,7 @@
 import { useEffect, type ComponentProps, type KeyboardEvent } from "react";
-import { composeEventHandlers } from "../../util/composeEventHandlers";
 import Primitive from "../../core/primitive";
-import { useMenuContext } from "./hooks/useMenuContext";
-import { useRovingFocus } from "../../hooks/useRovingFocus";
+import { useMenuContext } from "./menu-context";
+import { composeEventHandlers } from "../../util/compose-event-handlers";
 
 interface MenuTriggerProps extends ComponentProps<"button"> {
   asChild?: boolean;

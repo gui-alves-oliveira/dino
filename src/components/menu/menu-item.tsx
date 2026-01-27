@@ -1,8 +1,8 @@
 import { useRef, type ComponentProps, type KeyboardEvent } from "react";
 import Primitive from "../../core/primitive";
-import { useSubscribeToCollection } from "../../hooks/useSubscribeToCollection";
-import { composeEventHandlers } from "../../util/composeEventHandlers";
-import { useMenuContext } from "./hooks/useMenuContext";
+import { useMenuContext } from "./menu-context";
+import { useSubscribeToCollection } from "../../hooks/use-subscribe-to-collection";
+import { composeEventHandlers } from "../../util/compose-event-handlers";
 
 interface MenuItemProps extends ComponentProps<"li"> {
   asChild?: boolean;

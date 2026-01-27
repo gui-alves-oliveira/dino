@@ -1,4 +1,4 @@
-import { composeEventHandlers } from "./composeEventHandlers";
+import { composeEventHandlers } from "./compose-event-handlers";
 
 export function mergeProps<T extends Record<string, any>>(
   theirProps: T,

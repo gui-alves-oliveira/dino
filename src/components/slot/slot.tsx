@@ -1,5 +1,5 @@
 import * as React from "react";
-import { mergeProps } from "../../util/mergeProps";
+import { mergeProps } from "../../util/merge-props";
 
 export const Slot = React.forwardRef<
   HTMLElement,

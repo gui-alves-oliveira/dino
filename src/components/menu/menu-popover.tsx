@@ -5,13 +5,13 @@ import {
   type KeyboardEvent,
 } from "react";
 import Primitive from "../../core/primitive";
-import { useRovingFocus } from "../../hooks/useRovingFocus";
-import { composeEventHandlers } from "../../util/composeEventHandlers";
-import { useMenuContext } from "./hooks/useMenuContext";
 import { useFloating } from "@floating-ui/react-dom";
 import { offset } from "@floating-ui/react-dom";
 import { flip } from "@floating-ui/react-dom";
 import { shift } from "@floating-ui/react-dom";
+import { useMenuContext } from "./menu-context";
+import { useRovingFocus } from "../../hooks/use-roving-focus";
+import { composeEventHandlers } from "../../util/compose-event-handlers";
 
 export const MenuPopover = ({
   children,

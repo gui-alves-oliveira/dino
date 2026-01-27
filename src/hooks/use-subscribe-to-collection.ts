@@ -1,5 +1,5 @@
 import { useEffect, type RefObject } from "react";
-import { useCollection } from "./useCollection";
+import { useCollection } from "./use-collection";
 
 export function useSubscribeToCollection(
   itemRef: RefObject<HTMLElement | null>,
