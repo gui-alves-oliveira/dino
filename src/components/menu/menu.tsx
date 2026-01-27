@@ -14,7 +14,7 @@ const MenuRoot = ({ children }: MenuRootProps) => {
   const [state, send] = useReducer(menuReducer, "closed");
 
   const triggerRef = useRef<HTMLButtonElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
+  const popoverRef = useRef<HTMLUListElement>(null);
 
   const isOpen = state === "open" || state === "opening";
 
@@ -24,7 +24,7 @@ const MenuRoot = ({ children }: MenuRootProps) => {
         state,
         isOpen,
         triggerRef,
-        contentRef,
+        popoverRef,
         open: () => send({ type: "OPEN" }),
         close: () => send({ type: "CLOSE" }),
         send,

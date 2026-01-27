@@ -5,7 +5,7 @@ type MenuContextProps = {
   state: MenuState;
   isOpen: boolean;
   triggerRef: RefObject<HTMLButtonElement | null>;
-  contentRef: RefObject<HTMLDivElement | null>;
+  popoverRef: RefObject<HTMLUListElement | null>;
   open: () => void;
   close: () => void;
   send: Dispatch<MenuEvent>;
