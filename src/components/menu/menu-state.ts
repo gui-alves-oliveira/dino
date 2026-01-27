@@ -1,11 +1,17 @@
 export type MenuState = "closed" | "opening" | "open" | "closing";
 
+export type MenuCloseReason =
+  | "escape"
+  | "item-click"
+  | "outside"
+  | "blur"
+  | "programmatic"
+  | "toggle";
+
 export type MenuEvent =
   | { type: "OPEN" }
-  | { type: "CLOSE" }
-  | { type: "TOGGLE" }
-  | { type: "ESCAPE" }
-  | { type: "BLUR" };
+  | { type: "CLOSE"; reason: MenuCloseReason }
+  | { type: "TOGGLE" };
 
 export function menuReducer(state: MenuState, event: MenuEvent): MenuState {
   switch (state) {
@@ -20,12 +26,7 @@ export function menuReducer(state: MenuState, event: MenuEvent): MenuState {
       return "open";
 
     case "open":
-      if (
-        event.type === "CLOSE" ||
-        event.type === "ESCAPE" ||
-        event.type === "BLUR" ||
-        event.type === "TOGGLE"
-      ) {
+      if (event.type === "CLOSE" || event.type === "TOGGLE") {
         return "closed";
       }
 

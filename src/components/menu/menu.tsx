@@ -26,7 +26,7 @@ const MenuRoot = ({ children }: MenuRootProps) => {
         triggerRef,
         popoverRef,
         open: () => send({ type: "OPEN" }),
-        close: () => send({ type: "CLOSE" }),
+        close: () => send({ type: "CLOSE", reason: "programmatic" }),
         send,
       }}
     >

@@ -2,6 +2,7 @@ import { useEffect, type ComponentProps, type KeyboardEvent } from "react";
 import Primitive from "../../core/primitive";
 import { useMenuContext } from "./menu-context";
 import { composeEventHandlers } from "../../util/compose-event-handlers";
+import { CLOSE_KEYS, OPEN_KEYS } from "../../contants/keyboard-navigation";
 
 interface MenuTriggerProps extends ComponentProps<"button"> {
   asChild?: boolean;
@@ -26,17 +27,15 @@ export const MenuTrigger = ({
   }, [state, triggerRef]);
 
   const handleKeyDown = (e: KeyboardEvent) => {
-    switch (e.key) {
-      case "ArrowDown":
-      case "Enter":
-      case " ":
+    switch (true) {
+      case OPEN_KEYS.includes(e.key):
         e.preventDefault();
         send({ type: "TOGGLE" });
         break;
 
-      case "Escape":
+      case CLOSE_KEYS.includes(e.key):
         e.preventDefault();
-        send({ type: "CLOSE" });
+        send({ type: "CLOSE", reason: "escape" });
         break;
     }
   };

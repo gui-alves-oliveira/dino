@@ -12,6 +12,11 @@ import { shift } from "@floating-ui/react-dom";
 import { useMenuContext } from "./menu-context";
 import { useRovingFocus } from "../../hooks/use-roving-focus";
 import { composeEventHandlers } from "../../util/compose-event-handlers";
+import {
+  CLOSE_KEYS,
+  MOVE_DOWN_KEYS,
+  MOVE_UP_KEYS,
+} from "../../contants/keyboard-navigation";
 
 export const MenuPopover = ({
   children,
@@ -44,18 +49,18 @@ export const MenuPopover = ({
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
-      switch (e.key) {
-        case "Escape":
+      switch (true) {
+        case CLOSE_KEYS.includes(e.key):
           e.preventDefault();
-          send({ type: "ESCAPE" });
+          send({ type: "CLOSE", reason: "escape" });
           break;
 
-        case "ArrowDown":
+        case MOVE_DOWN_KEYS.includes(e.key):
           e.preventDefault();
           focusNext();
           break;
 
-        case "ArrowUp":
+        case MOVE_UP_KEYS.includes(e.key):
           e.preventDefault();
           focusPrevious();
           break;

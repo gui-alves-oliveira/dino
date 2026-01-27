@@ -3,6 +3,7 @@ import Primitive from "../../core/primitive";
 import { useMenuContext } from "./menu-context";
 import { useSubscribeToCollection } from "../../hooks/use-subscribe-to-collection";
 import { composeEventHandlers } from "../../util/compose-event-handlers";
+import { SELECT_KEYS } from "../../contants/keyboard-navigation";
 
 interface MenuItemProps extends ComponentProps<"li"> {
   asChild?: boolean;
@@ -20,14 +21,14 @@ export const MenuItem = ({
   useSubscribeToCollection(itemRef);
 
   const handleOnClick = () => {
-    send({ type: "CLOSE" });
+    send({ type: "CLOSE", reason: "item-click" });
   };
 
   const handleOnKeyDown = (e: KeyboardEvent) => {
-    switch (e.key) {
-      case "Enter":
+    switch (true) {
+      case SELECT_KEYS.includes(e.key):
         e.preventDefault();
-        send({ type: "CLOSE" });
+        send({ type: "CLOSE", reason: "item-click" });
     }
   };
 
