@@ -15,20 +15,20 @@ export const MenuItem = ({
   onKeyDown,
   ...props
 }: MenuItemProps) => {
-  const { send } = useMenuContext();
+  const { close } = useMenuContext();
   const itemRef = useRef<HTMLLIElement>(null);
 
   useSubscribeToCollection(itemRef);
 
   const handleOnClick = () => {
-    send({ type: "CLOSE", reason: "item-click" });
+    close("item-click");
   };
 
   const handleOnKeyDown = (e: KeyboardEvent) => {
     switch (true) {
       case SELECT_KEYS.includes(e.key):
         e.preventDefault();
-        send({ type: "CLOSE", reason: "item-click" });
+        close("item-click");
     }
   };
 

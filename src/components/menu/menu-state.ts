@@ -5,18 +5,21 @@ export type MenuCloseReason =
   | "item-click"
   | "outside"
   | "blur"
-  | "programmatic"
-  | "toggle";
+  | "programmatic";
+
+export type MenuOpenReason =
+  | "trigger-click"
+  | "trigger-keyboard"
+  | "programmatic";
 
 export type MenuEvent =
-  | { type: "OPEN" }
-  | { type: "CLOSE"; reason: MenuCloseReason }
-  | { type: "TOGGLE" };
+  | { type: "OPEN"; reason: MenuOpenReason }
+  | { type: "CLOSE"; reason: MenuCloseReason };
 
 export function menuReducer(state: MenuState, event: MenuEvent): MenuState {
   switch (state) {
     case "closed":
-      if (event.type === "OPEN" || event.type === "TOGGLE") {
+      if (event.type === "OPEN") {
         return "open";
       }
 
@@ -26,7 +29,7 @@ export function menuReducer(state: MenuState, event: MenuEvent): MenuState {
       return "open";
 
     case "open":
-      if (event.type === "CLOSE" || event.type === "TOGGLE") {
+      if (event.type === "CLOSE") {
         return "closed";
       }
 

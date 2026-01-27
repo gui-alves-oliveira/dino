@@ -23,7 +23,7 @@ export const MenuPopover = ({
   onKeyDown,
   ...props
 }: ComponentProps<"ul">) => {
-  const { isOpen, state, send, triggerRef, popoverRef } = useMenuContext();
+  const { isOpen, state, close, triggerRef, popoverRef } = useMenuContext();
   const { focusNext, focusPrevious, focusFirst } = useRovingFocus();
 
   useEffect(() => {
@@ -52,7 +52,7 @@ export const MenuPopover = ({
       switch (true) {
         case CLOSE_KEYS.includes(e.key):
           e.preventDefault();
-          send({ type: "CLOSE", reason: "escape" });
+          close("escape");
           break;
 
         case MOVE_DOWN_KEYS.includes(e.key):
@@ -66,7 +66,7 @@ export const MenuPopover = ({
           break;
       }
     },
-    [focusNext, focusPrevious, send],
+    [close, focusNext, focusPrevious],
   );
 
   if (!isOpen) {

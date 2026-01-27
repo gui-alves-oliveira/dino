@@ -1,5 +1,9 @@
 import { useReducer, useRef, type ReactNode } from "react";
-import { menuReducer } from "./menu-state";
+import {
+  menuReducer,
+  type MenuCloseReason,
+  type MenuOpenReason,
+} from "./menu-state";
 import { MenuPopover } from "./menu-popover";
 import { MenuItem } from "./menu-item";
 import { MenuTrigger } from "./menu-trigger";
@@ -25,9 +29,8 @@ const MenuRoot = ({ children }: MenuRootProps) => {
         isOpen,
         triggerRef,
         popoverRef,
-        open: () => send({ type: "OPEN" }),
-        close: () => send({ type: "CLOSE", reason: "programmatic" }),
-        send,
+        open: (reason: MenuOpenReason) => send({ type: "OPEN", reason }),
+        close: (reason: MenuCloseReason) => send({ type: "CLOSE", reason }),
       }}
     >
       <CollectionProvider>{children}</CollectionProvider>

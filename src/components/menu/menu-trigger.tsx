@@ -14,10 +14,18 @@ export const MenuTrigger = ({
   onKeyDown,
   ...props
 }: MenuTriggerProps) => {
-  const { state, send, triggerRef } = useMenuContext();
+  const { state, isOpen, open, close, triggerRef } = useMenuContext();
+
+  const toggle = () => {
+    if (isOpen) {
+      close("programmatic");
+    } else {
+      open("programmatic");
+    }
+  };
 
   const handleClick = () => {
-    send({ type: "TOGGLE" });
+    toggle();
   };
 
   useEffect(() => {
@@ -30,12 +38,12 @@ export const MenuTrigger = ({
     switch (true) {
       case OPEN_KEYS.includes(e.key):
         e.preventDefault();
-        send({ type: "TOGGLE" });
+        toggle();
         break;
 
       case CLOSE_KEYS.includes(e.key):
         e.preventDefault();
-        send({ type: "CLOSE", reason: "escape" });
+        close("escape");
         break;
     }
   };
