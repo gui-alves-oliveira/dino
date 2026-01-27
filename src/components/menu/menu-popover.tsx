@@ -29,7 +29,7 @@ export const MenuPopover = ({
     }
   }, [focusFirst, state]);
 
-  const { x, y } = useFloatingPosition({
+  const { floatingStyles } = useFloatingPosition({
     anchorRef: triggerRef,
     floatRef: popoverRef,
   });
@@ -64,7 +64,7 @@ export const MenuPopover = ({
     <Primitive.div
       role="menu"
       onKeyDown={composeEventHandlers(onKeyDown, handleKeyDown)}
-      style={{ x, y }}
+      style={{ position: "absolute", ...floatingStyles }}
       ref={popoverRef}
       {...props}
     >

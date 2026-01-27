@@ -1,33 +1,33 @@
-import { flip } from "@floating-ui/react-dom";
-import { shift } from "@floating-ui/react-dom";
-import { offset } from "@floating-ui/react-dom";
+import { offset, shift, flip, autoUpdate } from "@floating-ui/react-dom";
 import { useFloating } from "@floating-ui/react-dom";
 import { useEffect, type RefObject } from "react";
+
+interface FloatingPositionProps {
+  anchorRef: RefObject<HTMLElement | null>;
+  floatRef: RefObject<HTMLElement | null>;
+}
 
 export function useFloatingPosition({
   anchorRef,
   floatRef,
-}: {
-  anchorRef: RefObject<HTMLElement | null>;
-  floatRef: RefObject<HTMLElement | null>;
-}) {
-  const { x, y, refs } = useFloating({
+}: FloatingPositionProps) {
+  const { floatingStyles, refs } = useFloating({
     placement: "bottom-start",
-    middleware: [offset(8), flip(), shift({ padding: 0 })],
+    whileElementsMounted: autoUpdate,
+    middleware: [offset(), flip(), shift()],
   });
 
   useEffect(() => {
     if (anchorRef.current) {
-      refs.setFloating(anchorRef.current);
+      refs.setReference(anchorRef.current);
     }
 
     if (floatRef.current) {
-      refs.setReference(floatRef.current);
+      refs.setFloating(floatRef.current);
     }
   }, [anchorRef, floatRef, refs]);
 
   return {
-    x,
-    y,
+    floatingStyles,
   };
 }
