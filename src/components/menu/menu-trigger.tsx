@@ -18,9 +18,9 @@ export const MenuTrigger = ({
 
   const toggle = () => {
     if (isOpen) {
-      close("programmatic");
+      close({ reason: "programmatic" });
     } else {
-      open("programmatic");
+      open({ reason: "programmatic" });
     }
   };
 
@@ -43,7 +43,7 @@ export const MenuTrigger = ({
 
       case CLOSE_KEYS.includes(e.key):
         e.preventDefault();
-        close("escape");
+        close({ reason: "escape" });
         break;
     }
   };

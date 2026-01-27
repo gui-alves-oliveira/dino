@@ -6,8 +6,8 @@ type MenuContextProps = {
   isOpen: boolean;
   triggerRef: RefObject<HTMLButtonElement | null>;
   popoverRef: RefObject<HTMLDivElement | null>;
-  open: (reason: MenuOpenReason) => void;
-  close: (reason: MenuCloseReason) => void;
+  open: (props: { reason: MenuOpenReason }) => void;
+  close: (props: { reason: MenuCloseReason }) => void;
 };
 
 export const MenuContext = createContext<MenuContextProps | null>(null);

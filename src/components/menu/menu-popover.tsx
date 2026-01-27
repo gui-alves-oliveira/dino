@@ -39,7 +39,7 @@ export const MenuPopover = ({
       switch (true) {
         case CLOSE_KEYS.includes(e.key):
           e.preventDefault();
-          close("escape");
+          close({ reason: "escape" });
           break;
 
         case MOVE_DOWN_KEYS.includes(e.key):

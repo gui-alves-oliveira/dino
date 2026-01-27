@@ -22,6 +22,14 @@ const MenuRoot = ({ children }: MenuRootProps) => {
 
   const isOpen = state === "open" || state === "opening";
 
+  const open = ({ reason }: { reason: MenuOpenReason }) => {
+    send({ type: "OPEN", reason });
+  };
+
+  const close = ({ reason }: { reason: MenuCloseReason }) => {
+    send({ type: "CLOSE", reason });
+  };
+
   return (
     <MenuContext.Provider
       value={{
@@ -29,8 +37,8 @@ const MenuRoot = ({ children }: MenuRootProps) => {
         isOpen,
         triggerRef,
         popoverRef,
-        open: (reason: MenuOpenReason) => send({ type: "OPEN", reason }),
-        close: (reason: MenuCloseReason) => send({ type: "CLOSE", reason }),
+        open,
+        close,
       }}
     >
       <CollectionProvider>{children}</CollectionProvider>

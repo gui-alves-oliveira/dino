@@ -21,14 +21,14 @@ export const MenuItem = ({
   useSubscribeToCollection(itemRef);
 
   const handleOnClick = () => {
-    close("item-click");
+    close({ reason: "item-click" });
   };
 
   const handleOnKeyDown = (e: KeyboardEvent) => {
     switch (true) {
       case SELECT_KEYS.includes(e.key):
         e.preventDefault();
-        close("item-click");
+        close({ reason: "item-click" });
     }
   };
 
