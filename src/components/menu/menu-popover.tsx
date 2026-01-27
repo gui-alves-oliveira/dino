@@ -5,10 +5,6 @@ import {
   type KeyboardEvent,
 } from "react";
 import Primitive from "../../core/primitive";
-import { useFloating } from "@floating-ui/react-dom";
-import { offset } from "@floating-ui/react-dom";
-import { flip } from "@floating-ui/react-dom";
-import { shift } from "@floating-ui/react-dom";
 import { useMenuContext } from "./menu-context";
 import { useRovingFocus } from "../../hooks/use-roving-focus";
 import { composeEventHandlers } from "../../util/compose-event-handlers";
@@ -17,12 +13,13 @@ import {
   MOVE_DOWN_KEYS,
   MOVE_UP_KEYS,
 } from "../../contants/keyboard-navigation";
+import { useFloatingPosition } from "../../hooks/use-floating-position";
 
 export const MenuPopover = ({
   children,
   onKeyDown,
   ...props
-}: ComponentProps<"ul">) => {
+}: ComponentProps<"div">) => {
   const { isOpen, state, close, triggerRef, popoverRef } = useMenuContext();
   const { focusNext, focusPrevious, focusFirst } = useRovingFocus();
 
@@ -32,20 +29,10 @@ export const MenuPopover = ({
     }
   }, [focusFirst, state]);
 
-  const { floatingStyles, refs } = useFloating({
-    placement: "bottom-start",
-    middleware: [offset(8), flip(), shift({ padding: 0 })],
+  const { x, y } = useFloatingPosition({
+    anchorRef: triggerRef,
+    floatRef: popoverRef,
   });
-
-  useEffect(() => {
-    if (popoverRef.current) {
-      refs.setFloating(popoverRef.current);
-    }
-
-    if (triggerRef.current) {
-      refs.setReference(triggerRef.current);
-    }
-  }, [popoverRef, refs, triggerRef]);
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
@@ -70,18 +57,18 @@ export const MenuPopover = ({
   );
 
   if (!isOpen) {
-    return;
+    return null;
   }
 
   return (
-    <Primitive.ul
+    <Primitive.div
       role="menu"
       onKeyDown={composeEventHandlers(onKeyDown, handleKeyDown)}
-      style={{ ...floatingStyles }}
+      style={{ x, y }}
       ref={popoverRef}
       {...props}
     >
       {children}
-    </Primitive.ul>
+    </Primitive.div>
   );
 };
