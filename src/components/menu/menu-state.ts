@@ -5,7 +5,7 @@ export type MenuEvent =
   | { type: "CLOSE" }
   | { type: "TOGGLE" }
   | { type: "ESCAPE" }
-  | { type: "CLICK_OUT" };
+  | { type: "BLUR" };
 
 export function menuReducer(state: MenuState, event: MenuEvent): MenuState {
   switch (state) {
@@ -23,7 +23,7 @@ export function menuReducer(state: MenuState, event: MenuEvent): MenuState {
       if (
         event.type === "CLOSE" ||
         event.type === "ESCAPE" ||
-        event.type === "CLICK_OUT" ||
+        event.type === "BLUR" ||
         event.type === "TOGGLE"
       ) {
         return "closed";
