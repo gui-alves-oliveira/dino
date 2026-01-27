@@ -5,48 +5,33 @@ export type MenuEvent =
   | { type: "CLOSE" }
   | { type: "TOGGLE" }
   | { type: "ESCAPE" }
-  | { type: "BLUR" };
+  | { type: "CLICK_OUT" };
 
 export function menuReducer(state: MenuState, event: MenuEvent): MenuState {
   switch (state) {
     case "closed":
-      if (event.type === "OPEN") {
-        return "opening";
-      }
-
-      return state;
-
-    case "opening":
-      if (event.type === "CLOSE") {
-        return "closing";
-      }
-
-      if (event.type === "OPEN") {
+      if (event.type === "OPEN" || event.type === "TOGGLE") {
         return "open";
       }
 
       return state;
 
+    case "opening":
+      return "open";
+
     case "open":
       if (
         event.type === "CLOSE" ||
         event.type === "ESCAPE" ||
-        event.type === "BLUR"
+        event.type === "CLICK_OUT" ||
+        event.type === "TOGGLE"
       ) {
-        return "closing";
+        return "closed";
       }
 
       return state;
 
     case "closing":
-      if (event.type === "OPEN") {
-        return "opening";
-      }
-
-      if (event.type === "CLOSE") {
-        return "closed";
-      }
-
       return state;
   }
 }
