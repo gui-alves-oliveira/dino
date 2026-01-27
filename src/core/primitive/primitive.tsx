@@ -36,4 +36,6 @@ export const Primitive = {
   a: createPrimitive("a"),
   img: createPrimitive("img"),
   input: createPrimitive("input"),
+  ul: createPrimitive("ul"),
+  li: createPrimitive("li"),
 };

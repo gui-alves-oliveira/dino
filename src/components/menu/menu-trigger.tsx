@@ -31,10 +31,12 @@ export const MenuTrigger = ({
       case "ArrowDown":
       case "Enter":
       case " ":
+        e.preventDefault();
         send({ type: "TOGGLE" });
         break;
 
       case "Escape":
+        e.preventDefault();
         send({ type: "CLOSE" });
         break;
     }

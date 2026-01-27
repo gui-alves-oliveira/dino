@@ -13,7 +13,7 @@ export const MenuPopover = ({
   children,
   onKeyDown,
   ...props
-}: ComponentProps<"div">) => {
+}: ComponentProps<"ul">) => {
   const { isOpen, state, send } = useMenuContext();
   const { focusNext, focusPrevious, focusFirst } = useRovingFocus();
 
@@ -24,17 +24,20 @@ export const MenuPopover = ({
   }, [focusFirst, state]);
 
   const handleKeyDown = useCallback(
-    (event: KeyboardEvent) => {
-      switch (event.key) {
+    (e: KeyboardEvent) => {
+      switch (e.key) {
         case "Escape":
+          e.preventDefault();
           send({ type: "ESCAPE" });
           break;
 
         case "ArrowDown":
+          e.preventDefault();
           focusNext();
           break;
 
         case "ArrowUp":
+          e.preventDefault();
           focusPrevious();
           break;
       }
@@ -47,11 +50,12 @@ export const MenuPopover = ({
   }
 
   return (
-    <Primitive.div
+    <Primitive.ul
+      role="menu"
       onKeyDown={composeEventHandlers(onKeyDown, handleKeyDown)}
       {...props}
     >
       {children}
-    </Primitive.div>
+    </Primitive.ul>
   );
 };
