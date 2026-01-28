@@ -33,7 +33,7 @@ const MenuRoot = ({ children }: MenuRootProps) => {
     middleware: [offset(8), flip(), shift()],
   });
 
-  const isOpen = state === "open" || state === "opening";
+  const isOpen = state === "open";
 
   const open = ({ reason }: { reason: MenuOpenReason }) => {
     send({ type: "OPEN", reason });
