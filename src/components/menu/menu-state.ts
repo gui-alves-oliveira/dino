@@ -1,4 +1,4 @@
-export type MenuState = "closed" | "opening" | "open" | "closing";
+export type MenuState = "closed" | "open";
 
 export type MenuCloseReason =
   | "escape"
@@ -25,17 +25,11 @@ export function menuReducer(state: MenuState, event: MenuEvent): MenuState {
 
       return state;
 
-    case "opening":
-      return "open";
-
     case "open":
       if (event.type === "CLOSE") {
         return "closed";
       }
 
-      return state;
-
-    case "closing":
       return state;
   }
 }

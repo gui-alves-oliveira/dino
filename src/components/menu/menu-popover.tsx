@@ -14,13 +14,15 @@ import {
   MOVE_UP_KEYS,
 } from "../../contants/keyboard-navigation";
 import { mergeRefs } from "../../util/merge-refs";
+import { useOutsidePress } from "../../hooks/use-outside-press";
 
 export const MenuPopover = ({
   children,
   onKeyDown,
   ...props
 }: ComponentProps<"div">) => {
-  const { isOpen, state, close, popoverRef, floating } = useMenuContext();
+  const { isOpen, state, close, triggerRef, popoverRef, floating } =
+    useMenuContext();
   const { focusNext, focusPrevious, focusFirst } = useRovingFocus();
 
   useEffect(() => {
@@ -28,6 +30,13 @@ export const MenuPopover = ({
       focusFirst();
     }
   }, [focusFirst, state]);
+
+  useOutsidePress([triggerRef, popoverRef], {
+    enabled: isOpen,
+    callback: () => {
+      close({ reason: "outside" });
+    },
+  });
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {

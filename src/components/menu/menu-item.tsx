@@ -5,7 +5,7 @@ import { useSubscribeToCollection } from "../../hooks/use-subscribe-to-collectio
 import { composeEventHandlers } from "../../util/compose-event-handlers";
 import { SELECT_KEYS } from "../../contants/keyboard-navigation";
 
-interface MenuItemProps extends ComponentProps<"button"> {
+interface MenuItemProps extends ComponentProps<"div"> {
   asChild?: boolean;
 }
 
@@ -16,7 +16,7 @@ export const MenuItem = ({
   ...props
 }: MenuItemProps) => {
   const { close } = useMenuContext();
-  const itemRef = useRef<HTMLButtonElement>(null);
+  const itemRef = useRef<HTMLDivElement>(null);
 
   useSubscribeToCollection(itemRef);
 
@@ -33,7 +33,7 @@ export const MenuItem = ({
   };
 
   return (
-    <Primitive.button
+    <Primitive.div
       role="menuitem"
       tabIndex={-1}
       onClick={composeEventHandlers(onClick, handleOnClick)}
@@ -42,6 +42,6 @@ export const MenuItem = ({
       {...props}
     >
       {children}
-    </Primitive.button>
+    </Primitive.div>
   );
 };
