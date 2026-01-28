@@ -13,14 +13,14 @@ import {
   MOVE_DOWN_KEYS,
   MOVE_UP_KEYS,
 } from "../../contants/keyboard-navigation";
-import { useFloatingPosition } from "../../hooks/use-floating-position";
+import { mergeRefs } from "../../util/merge-refs";
 
 export const MenuPopover = ({
   children,
   onKeyDown,
   ...props
 }: ComponentProps<"div">) => {
-  const { isOpen, state, close, triggerRef, popoverRef } = useMenuContext();
+  const { isOpen, state, close, popoverRef, floating } = useMenuContext();
   const { focusNext, focusPrevious, focusFirst } = useRovingFocus();
 
   useEffect(() => {
@@ -28,11 +28,6 @@ export const MenuPopover = ({
       focusFirst();
     }
   }, [focusFirst, state]);
-
-  const { floatingStyles } = useFloatingPosition({
-    anchorRef: triggerRef,
-    floatRef: popoverRef,
-  });
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
@@ -64,8 +59,8 @@ export const MenuPopover = ({
     <Primitive.div
       role="menu"
       onKeyDown={composeEventHandlers(onKeyDown, handleKeyDown)}
-      style={{ position: "absolute", ...floatingStyles }}
-      ref={popoverRef}
+      style={{ ...floating.floatingStyles }}
+      ref={mergeRefs(popoverRef, floating.refs.setFloating)}
       {...props}
     >
       {children}

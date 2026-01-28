@@ -9,6 +9,13 @@ import { MenuItem } from "./menu-item";
 import { MenuTrigger } from "./menu-trigger";
 import { CollectionProvider } from "../../core/collection/collection";
 import { MenuContext } from "./menu-context";
+import {
+  offset,
+  flip,
+  shift,
+  useFloating,
+  autoUpdate,
+} from "@floating-ui/react-dom";
 
 interface MenuRootProps {
   children: ReactNode;
@@ -19,6 +26,12 @@ const MenuRoot = ({ children }: MenuRootProps) => {
 
   const triggerRef = useRef<HTMLButtonElement>(null);
   const popoverRef = useRef<HTMLDivElement>(null);
+
+  const floating = useFloating({
+    placement: "bottom-start",
+    whileElementsMounted: autoUpdate,
+    middleware: [offset(8), flip(), shift()],
+  });
 
   const isOpen = state === "open" || state === "opening";
 
@@ -39,6 +52,7 @@ const MenuRoot = ({ children }: MenuRootProps) => {
         popoverRef,
         open,
         close,
+        floating,
       }}
     >
       <CollectionProvider>{children}</CollectionProvider>

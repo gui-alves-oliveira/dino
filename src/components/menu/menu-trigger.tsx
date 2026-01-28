@@ -3,6 +3,7 @@ import Primitive from "../../core/primitive";
 import { useMenuContext } from "./menu-context";
 import { composeEventHandlers } from "../../util/compose-event-handlers";
 import { CLOSE_KEYS, OPEN_KEYS } from "../../contants/keyboard-navigation";
+import { mergeRefs } from "../../util/merge-refs";
 
 interface MenuTriggerProps extends ComponentProps<"button"> {
   asChild?: boolean;
@@ -14,7 +15,7 @@ export const MenuTrigger = ({
   onKeyDown,
   ...props
 }: MenuTriggerProps) => {
-  const { state, isOpen, open, close, triggerRef } = useMenuContext();
+  const { state, isOpen, open, close, triggerRef, floating } = useMenuContext();
 
   const toggle = () => {
     if (isOpen) {
@@ -52,7 +53,7 @@ export const MenuTrigger = ({
     <Primitive.button
       onClick={composeEventHandlers(onClick, handleClick)}
       onKeyDown={composeEventHandlers(onKeyDown, handleKeyDown)}
-      ref={triggerRef}
+      ref={mergeRefs(triggerRef, floating.refs.setReference)}
       {...props}
     >
       {children}
